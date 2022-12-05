@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
-import 'package:notekeep/screens/login_screen.dart';
+import 'package:get/route_manager.dart';
+import 'package:notekeep/screens/splash_screen.dart';
 
 Client client = Client();
 
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return const GetMaterialApp(
       title: 'Material App',
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }

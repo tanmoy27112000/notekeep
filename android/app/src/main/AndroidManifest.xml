@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.notekeep">
+    package="com.notekeep.notekeep">
    <application
         android:label="notekeep"
         android:name="${applicationName}"

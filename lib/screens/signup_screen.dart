@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:notekeep/helpers/auth_helper.dart';
 import 'package:notekeep/models/login_cred_model.dart';
-import 'package:notekeep/screens/home_screen.dart';
-import 'package:notekeep/screens/signup_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   //form key
   final _formKey = GlobalKey<FormState>();
   final LoginCredModel _loginCredModel = LoginCredModel();
@@ -20,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Login'),
+          title: const Text('Signup'),
         ),
         body: Form(
           key: _formKey,
@@ -64,16 +61,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       _formKey.currentState!.save();
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('logging in...')));
+                          const SnackBar(content: Text('creating user...')));
                       try {
                         bool result = await AuthHelper.instance
-                            .loginEmailPassword(_loginCredModel.email!,
+                            .signUpEmailPassword(_loginCredModel.email!,
                                 _loginCredModel.password!);
                         if (result) {
                           // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('logged in')));
-                          Get.to(() => const HomeScreen());
                         }
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -81,17 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     }
                   },
-                  child: const Text('Submit'),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignupScreen(),
-                        ));
-                  },
-                  child: const Text("Don't have an account? Sign up"),
+                  child: const Text('Create account'),
                 ),
               ],
             ),

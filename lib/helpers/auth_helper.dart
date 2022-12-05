@@ -13,7 +13,7 @@ class AuthHelper {
 
   static final account = Account(client);
 
-  static Future<bool> isLoggedIn() async {
+  Future<bool> isLoggedIn() async {
     final SharedPreferences prefs = await _prefs;
     return prefs.getBool('isLoggedIn') ?? false;
   }
@@ -38,5 +38,36 @@ class AuthHelper {
     } catch (e) {
       rethrow;
     }
+  }
+
+  signUpEmailPassword(String email, String password) async {
+    final SharedPreferences prefs = await _prefs;
+    try {
+      final user = await account.create(
+        userId: ID.unique(),
+        email: email,
+        password: password,
+      );
+      final models.Session response = await account.createEmailSession(
+        email: email,
+        password: password,
+      );
+      prefs.setString('session', response.clientCode);
+      prefs.setString('email', email);
+      prefs.setString('password', password);
+      setLoggedIn(true);
+      return true;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  logout() async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.remove('session');
+    prefs.remove('email');
+    prefs.remove('password');
+    setLoggedIn(false);
+    account.deleteSessions();
   }
 }

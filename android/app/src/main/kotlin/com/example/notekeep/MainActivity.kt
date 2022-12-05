@@ -1,4 +1,4 @@
-package com.example.notekeep
+package com.notekeep.notekeep
 
 import io.flutter.embedding.android.FlutterActivity
 
