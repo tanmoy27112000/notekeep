@@ -13,6 +13,11 @@ class AuthHelper {
 
   static final account = Account(client);
 
+  Future<String?> getUserId() async {
+    final SharedPreferences prefs = await _prefs;
+    return prefs.getString('userId');
+  }
+
   Future<bool> isLoggedIn() async {
     final SharedPreferences prefs = await _prefs;
     return prefs.getBool('isLoggedIn') ?? false;
@@ -30,7 +35,7 @@ class AuthHelper {
         email: email,
         password: password,
       );
-      prefs.setString('session', response.clientCode);
+      prefs.setString('userId', response.userId);
       prefs.setString('email', email);
       prefs.setString('password', password);
       setLoggedIn(true);
@@ -52,7 +57,7 @@ class AuthHelper {
         email: email,
         password: password,
       );
-      prefs.setString('session', response.clientCode);
+      prefs.setString('userId', response.userId);
       prefs.setString('email', email);
       prefs.setString('password', password);
       setLoggedIn(true);
@@ -64,7 +69,7 @@ class AuthHelper {
 
   logout() async {
     final SharedPreferences prefs = await _prefs;
-    prefs.remove('session');
+    prefs.remove('userId');
     prefs.remove('email');
     prefs.remove('password');
     setLoggedIn(false);

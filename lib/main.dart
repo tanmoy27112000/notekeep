@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:get/route_manager.dart';
+import 'package:notekeep/providers/todo_provider.dart';
 import 'package:notekeep/screens/splash_screen.dart';
+import 'package:provider/provider.dart';
 
 Client client = Client();
 
@@ -19,9 +21,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      title: 'Material App',
-      home: SplashScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => TodoProvider(),
+        ),
+      ],
+      child: const GetMaterialApp(
+        title: 'Material App',
+        home: SplashScreen(),
+      ),
     );
   }
 }
