@@ -3,6 +3,7 @@ class TodoModel {
   String description;
   bool isDone;
   DateTime createdAt;
+  String id;
   String userId;
   TodoModel({
     required this.title,
@@ -10,14 +11,16 @@ class TodoModel {
     required this.isDone,
     required this.createdAt,
     required this.userId,
+    required this.id,
   });
 
-  TodoModel.fromJson(Map<String, dynamic> json)
+  TodoModel.fromJson(Map<String, dynamic> json, String tempId)
       : title = json['title'],
         description = json['description'],
         isDone = json['isDone'],
         createdAt = DateTime.parse(json['createdAt']),
-        userId = json['userId'];
+        userId = json['userId'],
+        id = tempId;
 
   Map<String, dynamic> toJson() => {
         'title': title,

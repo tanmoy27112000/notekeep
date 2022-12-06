@@ -52,9 +52,42 @@ class DatabaseHelper {
       );
       return response.documents
           .map(
-            (e) => TodoModel.fromJson(e.data),
+            (e) => TodoModel.fromJson(e.data, e.$id),
           )
           .toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  void updateTodo(TodoModel todo) async{
+    databases ?? init();
+    try {
+      await databases!.updateDocument(
+        databaseId: "6389141f041930f1b5ee",
+        collectionId: "63891433241c6149e129",
+        documentId: todo.id,
+        data: {
+          "title": todo.title,
+          "description": todo.description,
+          "isDone": todo.isDone,
+          "createdAt": todo.createdAt.toIso8601String(),
+          "userId": todo.userId,
+        },
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  void deleteTodo(String id)async {
+    databases ?? init();
+    try {
+      await databases!.deleteDocument(
+        databaseId: "6389141f041930f1b5ee",
+        collectionId: "63891433241c6149e129",
+        documentId: id,
+      );
     } catch (e) {
       rethrow;
     }

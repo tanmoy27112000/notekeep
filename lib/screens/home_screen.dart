@@ -59,11 +59,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         onChanged: (value) {
                           setState(() {
                             todoProvider.todos[index].isDone = value!;
+                            todoProvider.updateTodo(
+                              index,
+                              todoProvider.todos[index],
+                            );
                           });
                         },
                       ),
-                      trailing: Text(
-                        "${todoProvider.todos[index].createdAt.day}-${todoProvider.todos[index].createdAt.month}-${todoProvider.todos[index].createdAt.year}",
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "${todoProvider.todos[index].createdAt.day}-${todoProvider.todos[index].createdAt.month}-${todoProvider.todos[index].createdAt.year}",
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                todoProvider.removeTodo(index);
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   );
