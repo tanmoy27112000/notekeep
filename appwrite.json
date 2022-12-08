@@ -1,0 +1,22 @@
+{
+    "projectId": "63891086b06d6fbb200f",
+    "projectName": "notekeep",
+    "functions": [
+        {
+            "$id": "63924086e25dc2c46bb2",
+            "name": "helloNotekeep",
+            "runtime": "dart-2.17",
+            "path": "functions/helloNotekeep",
+            "entrypoint": "lib/main.dart",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 30
+        }
+    ]
+}
+
